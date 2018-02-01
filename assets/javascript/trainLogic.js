@@ -46,10 +46,10 @@ database.ref().on("child_added", function(childSnapshot){
 	var dataFirstTrain = childSnapshot.val().firstTrain;
 	var dataFrequency = childSnapshot.val().frequency;
 	
+	var timeDiff = moment().diff(dataFirstTrain, "minutes");
+	var minSinceTrain = dataFrequency % timeDiff;
+	var minAway = dataFrequency - minSinceTrain;
+	var nextArrive = moment().add(minAway, "minutes").format("HH:mm");
 
-
-	// var minAway = ;
-	// var nextArrive = ;
-
-	// $("tbody").append
-})
+	$("tbody").append("<tr><td>" + dataTrainName + "</td><td>" + dataDestination + "</td><td>" + dataFrequency + "</td><td>" + nextArrive + "</td><td>" + minAway + "</td></tr>");
+});
